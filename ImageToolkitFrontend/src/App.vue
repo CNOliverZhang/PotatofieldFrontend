@@ -1,32 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100&display=swap');
+
+:root {
+  --main-font: "Noto Sans SC";
+  --main-color: #2196F3;
+  --warning-red: #F56C6C;
+  --black-gray: #303133;
+  --dark-gray: #606266;
+  --gray: #C0C4CC;
+  --light-gray: #DCDFE6;
+  --white-gray: #F5F7FA;
+  --white: #FFFFFF;
+  --black: #000000;
+  --transparent: rgba(255, 255, 255, 0);
+  --transparent-black-cover: rgba(0, 0, 0, 0.3);
+  --transparent-white-cover: rgba(255, 255, 255, 0.7);
 }
 
-#nav {
-  padding: 30px;
+body {
+  margin: 0;
+  font-family: var(--main-font);
+  cursor: default;
+  -webkit-app-region: drag;
+  user-select: none;
+  color: var(--dark-gray);
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+a {
+  color: unset;
+  cursor: pointer;
+  text-decoration: unset;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.link {
+  font-size: 18px;
+  transition: 0.5s;
+
+  &:hover {
+    color: var(--main-color)!important;
+  }
+
+  &:active {
+    filter: brightness(0.7);
   }
 }
 </style>

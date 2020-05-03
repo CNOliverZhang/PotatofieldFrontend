@@ -7,7 +7,7 @@
     <pf-drawer :dark-mode.sync="darkMode">
       <div id="language-select">
         选择语言
-        <el-select v-model="language" @change="initLoadedPageCount">
+        <el-select v-model="language">
           <el-option label="全部" value=""></el-option>
           <el-option label="中文" value="中文"></el-option>
           <el-option label="英文" value="英文"></el-option>
@@ -23,7 +23,7 @@
       auto-search
       :search-function="search"></pf-header>
     <div id="fonts">
-      <div v-for="(font, index) in displayFonts.slice(0, this.loadedPageCount * 16)" class="font-container" :key="index">
+      <div v-for="(font, index) in displayFonts" class="font-container" :key="index">
         <div
           class="font"
           :style="{
@@ -61,8 +61,7 @@ export default {
       darkMode: false,
       fonts: [],
       filteredFonts: [],
-      language: '',
-      loadedPageCount: 1
+      language: ''
     }
   },
   watch: {
@@ -79,10 +78,6 @@ export default {
     }
   },
   methods: {
-    initLoadedPageCount() {
-      document.body.scrollTop = document.documentElement.scrollTop = 0
-      this.loadedPageCount = 1
-    },
     search(keyword) {
       if (keyword == '') {
         this.filteredFonts = this.fonts
@@ -91,7 +86,6 @@ export default {
           return font.verbose.includes(keyword)
         })
       }
-      this.initLoadedPageCount()
     },
     downloadFont(url) {
       window.open(url, '_blank')
@@ -114,32 +108,13 @@ export default {
       this.filteredFonts = this.fonts
       loading.close()
     })
-    let scrollFunction = () => {}
-    if (window.onscroll) {
-      scrollFunction = window.onscroll
-    }
-    window.onscroll = () => {
-      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-      let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight
-      if (scrollTop + windowHeight >= scrollHeight) {
-        if (this.loadedPageCount * 16 < this.displayFonts.length) {
-          this.$notify.success({
-            title: '加载成功',
-            message: '已加载第 ' + (this.loadedPageCount + 1) + ' 页，共 ' + Math.ceil(this.displayFonts.length / 16) + ' 页',
-            position: 'bottom-right'
-          })
-          this.loadedPageCount += 1
-        }
-      }
-      scrollFunction()
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 #index {
+  min-height: 100vh;
   transition: 0.5s;
 
   #language-select {

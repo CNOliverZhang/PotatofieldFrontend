@@ -15,12 +15,16 @@ Vue.use(VueRouter)
     }
   },
   {
-    path: '*',
+    path: '/404',
     name: 'error',
     component: error,
     meta: {
       title: '洋芋田字体库'
     }
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 
