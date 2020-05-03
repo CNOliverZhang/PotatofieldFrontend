@@ -27,7 +27,9 @@
         }">别看啦，这里什么都没有</div>
       <router-link
         class="link"
-        to="/"
+        :to="{
+          name: 'index'
+        }"
         :style="{
           'color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
         }">返回首页</router-link>

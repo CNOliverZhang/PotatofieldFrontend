@@ -48,6 +48,49 @@
         </div>
       </div>
     </div>
+    <div
+      id="random-buttom"
+      @click="random"
+      :style="{
+        'box-shadow': '0 0 12px ' + (darkMode ? 'var(--black-gray)' : 'var(--gray)')
+      }">
+      <span class="fa fa-dice"></span>
+    </div>
+    <transition name="fade">
+      <div id="random-font-container" v-if="randomFont">
+        <div
+          id="random-font"
+          :style="{
+            'background-color': darkMode ? 'var(--black-gray)' : 'var(--white)',
+            'color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
+          }">
+          <div>
+            <img
+              :src="randomFont.image"
+              :style="{
+                'filter': darkMode ? 'invert(100%)' : null
+              }"
+              class="preview">
+            <div class="text">名称：{{ randomFont.verbose }}</div>
+            <div class="text">字形：{{ randomFont.style }}</div>
+          </div>
+          <div @click="downloadFont(randomFont.src)" class="action">
+            <span class="fa fa-download"></span>
+            <div>下载字体</div>
+          </div>
+        </div>
+        <div id="actions">
+          <div @click="random" class="action">
+            <span class="fa fa-dice"></span>
+            <div>再来一次</div>
+          </div>
+          <div @click="clearRandom" class="action">
+            <span class="fa fa-times"></span>
+            <div>关闭</div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -62,7 +105,8 @@ export default {
       fonts: [],
       filteredFonts: [],
       language: '',
-      loadedPageCount: 1
+      loadedPageCount: 1,
+      randomFont: null
     }
   },
   watch: {
@@ -95,6 +139,19 @@ export default {
     },
     downloadFont(url) {
       window.open(url, '_blank')
+    },
+    random() {
+      let loading = Loading.service()
+      this.$http.get('https://api.potatofield.cn/fontlibrary/fonts/random').catch((error) => {
+        loading.close()
+        this.$message.error('加载随机字体失败，请检查您的网络！')
+      }).then((res) => {
+        this.randomFont = res.data
+        loading.close()
+      })
+    },
+    clearRandom() {
+      this.randomFont = null
     }
   },
   mounted() {
@@ -124,11 +181,6 @@ export default {
       let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight
       if (scrollTop + windowHeight >= scrollHeight) {
         if (this.loadedPageCount * 16 < this.displayFonts.length) {
-          this.$notify.success({
-            title: '加载成功',
-            message: '已加载第 ' + (this.loadedPageCount + 1) + ' 页，共 ' + Math.ceil(this.displayFonts.length / 16) + ' 页',
-            position: 'bottom-right'
-          })
           this.loadedPageCount += 1
         }
       }
@@ -139,6 +191,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-to, .fade-leave, .fade-enter-active {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.fade-enter, .fade-leave-to, .fade-leave-active {
+  opacity: 0;
+  transition: 0.5s;
+}
+
 #index {
   transition: 0.5s;
 
@@ -255,6 +317,125 @@ export default {
 
       .font-container {
         width: 25%;
+      }
+    }
+  }
+
+  #random-buttom {
+    position: fixed;
+    z-index: 1000;
+    background-color: var(--main-color);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    #random-buttom {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      font-size: 30px;
+      bottom: 30px;
+      right: 30px;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    #random-buttom {
+      width: 80px;
+      height: 80px;
+      border-radius: 40px;
+      font-size: 40px;
+      bottom: 40px;
+      right: 40px;
+    }
+  }
+
+  #random-font-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    background-color: var(--transparent-black-cover);
+
+    #random-font {
+      max-width: calc(100% - 40px);
+      width: 360px;
+      height: 230px;
+      border-radius: 12px;
+      padding: 30px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 0 12px var(--black-gray);
+      transition: 0.5s;
+
+      .preview {
+        width: 100%;
+      }
+
+      .text {
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .action {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        transition: 0.5s;
+        cursor: pointer;
+
+        svg {
+          margin-right: 10px;
+        }
+
+        &:hover {
+          color: #2196F3;
+        }
+      }
+    }
+
+    #actions {
+      margin-top: 30px;
+      max-width: calc(100% - 40px);
+      width: 360px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--white);
+
+      .action {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        transition: 0.5s;
+        cursor: pointer;
+
+        svg {
+          margin-right: 10px;
+        }
+
+        &:hover {
+          color: #2196F3;
+        }
       }
     }
   }

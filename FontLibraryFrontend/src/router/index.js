@@ -19,12 +19,14 @@ Vue.use(VueRouter)
     name: 'error',
     component: error,
     meta: {
-      title: '洋芋田字体库'
+      title: '洋芋田字体库 - 找不到网页'
     }
   },
   {
     path: '*',
-    redirect: '/404'
+    redirect: {
+      name: 'error'
+    }
   }
 ]
 

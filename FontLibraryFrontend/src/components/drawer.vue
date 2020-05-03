@@ -329,13 +329,13 @@ export default {
     }
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 800px) {
     #panel {
       width: 100%;
     }
   }
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 800px) {
     #panel {
       width: 600px;
     }
