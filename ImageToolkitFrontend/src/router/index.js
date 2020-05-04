@@ -19,12 +19,14 @@ Vue.use(VueRouter)
     name: 'error',
     component: error,
     meta: {
-      title: '洋芋田图像工具箱'
+      title: '洋芋田图像工具箱 找不到网页'
     }
   },
   {
     path: '*',
-    redirect: '/404'
+    redirect: {
+      name: 'error'
+    }
   }
 ]
 

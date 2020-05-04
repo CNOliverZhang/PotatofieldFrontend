@@ -176,9 +176,9 @@ export default {
       scrollFunction = window.onscroll
     }
     window.onscroll = () => {
-      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-      let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      let windowHeight = window.innerHeight || Math.min(document.documentElement.clientHeight, document.body.clientHeight)
+      let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
       if (scrollTop + windowHeight >= scrollHeight) {
         if (this.loadedPageCount * 16 < this.displayFonts.length) {
           this.loadedPageCount += 1

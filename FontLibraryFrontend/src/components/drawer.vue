@@ -48,7 +48,7 @@
               <div>{{ item.title }}</div>
               <div
                 class="collapse-button"
-                v-if="item.subMenu"
+                v-if="item.submenu.length > 0"
                 :style="{
                   'transform': item.collapsed ? 'rotate(0deg)' : 'rotate(180deg)'
                 }">
@@ -58,16 +58,16 @@
             <div
               class="subnavs"
               :style="{
-                'height': ((item.subMenu && !item.collapsed) ? 48 : 0) * (item.subMenu ? item.subMenu.length : 0) + 'px'
+                'height': ((item.submenu && !item.collapsed) ? 48 : 0) * (item.submenu ? item.submenu.length : 0) + 'px'
               }">
-              <div v-for="(subitem, index) in item.subMenu" :key="index">
+              <div v-for="(subitem, index) in item.submenu" :key="index">
                 <div
                   class="subnav"
                   @click="openUrl(subitem.url)"
                   :style="{
                     'background-color': darkMode ? 'var(--black-gray)' : 'var(--white)'
                   }">
-                  <div>{{ subitem.subtitle }}</div>
+                  <div>{{ subitem.title }}</div>
                 </div>
               </div>
             </div>
@@ -110,21 +110,6 @@
 </template>
 
 <script>
-const navMenu = [
-  {
-    title: '洋芋田博客',
-    url: 'https://blog.potatofield.cn'
-  },
-  {
-    title: '洋芋田图像工具箱',
-    url: 'https://imagetoolkit.potatofield.cn'
-  },
-  {
-    title: '洋芋田字体库',
-    url: 'https://fonts.potatofield.cn'
-  }
-]
-
 export default {
   name: 'pf-drawer',
   data() {
@@ -144,7 +129,7 @@ export default {
       this.showDrawer = false
     },
     clickNav(index) {
-      if (this.navMenu[index].subMenu) {
+      if (this.navMenu[index].submenu.length > 0) {
         let navMenu = JSON.parse(JSON.stringify(this.navMenu))
         navMenu[index].collapsed = !navMenu[index].collapsed
         this.navMenu = navMenu
@@ -160,7 +145,9 @@ export default {
     }
   },
   mounted() {
-    this.navMenu = navMenu
+    this.$http.get('https://api.potatofield.cn/menu').then((res) => {
+      this.navMenu = res.data
+    })
   }
 }
 </script>

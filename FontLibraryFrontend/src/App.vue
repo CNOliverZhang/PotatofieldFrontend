@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100&display=swap');
+@import url('https://fonts.lug.ustc.edu.cn/css2?family=Noto+Sans+SC:wght@100&display=swap');
 
 :root {
   --main-font: "Noto Sans SC";

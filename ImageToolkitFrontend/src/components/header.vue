@@ -198,7 +198,7 @@ export default {
       flex-direction: column;
     }
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 800px) {
       #title-container {
         margin-left: 50px;
         height: 100px;
@@ -216,7 +216,7 @@ export default {
       }
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 800px) {
       #title-container {
         align-items: center;
 
@@ -235,7 +235,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 800px) {
     #content-wrapper {
       flex-direction: column;
       justify-content: center;
