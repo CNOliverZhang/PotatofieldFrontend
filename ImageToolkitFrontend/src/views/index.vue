@@ -199,6 +199,9 @@ export default {
         }
       }
     })
+    window.addEventListener('touchmove', (event) => {
+      event.preventDefault()
+    })
   }
 }
 </script>
