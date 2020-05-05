@@ -141,13 +141,14 @@ export default {
       window.open(url, '_blank')
     },
     random() {
-      let loading = Loading.service()
       this.$http.get('https://api.potatofield.cn/fontlibrary/fonts/random').catch((error) => {
-        loading.close()
-        this.$message.error('加载随机字体失败，请检查您的网络！')
+        this.$notify.error({
+          title: '出现错误',
+          message: '加载随机字体失败，请检查您的网络！',
+          position: 'bottom-right'
+        })
       }).then((res) => {
         this.randomFont = res.data
-        loading.close()
       })
     },
     clearRandom() {
@@ -164,8 +165,12 @@ export default {
     document.body.style.backgroundColor = (this.darkMode ? 'var(--dark-gray)' : 'var(--white-gray)')
     let loading = Loading.service()
     this.$http.get('https://api.potatofield.cn/fontlibrary/fonts').catch((error) => {
-      loading.close()
-      this.$message.error('加载字体列表失败，请检查您的网络！')
+      this.$notify.error({
+        title: '出现错误',
+        message: '加载字体列表失败，请检查您的网络！',
+        duration: 0,
+        position: 'bottom-right'
+      })
     }).then((res) => {
       this.fonts = res.data
       this.filteredFonts = this.fonts
@@ -179,7 +184,7 @@ export default {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       let windowHeight = window.innerHeight || Math.min(document.documentElement.clientHeight, document.body.clientHeight)
       let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
-      if (scrollTop + windowHeight >= scrollHeight) {
+      if (Math.ceil(scrollTop + windowHeight) >= scrollHeight) {
         if (this.loadedPageCount * 16 < this.displayFonts.length) {
           this.loadedPageCount += 1
         }

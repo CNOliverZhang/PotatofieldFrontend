@@ -188,16 +188,14 @@ export default {
       font-size: 32px;
       line-height: 70px;
       text-align: center;
-      position: sticky;
-      z-index: 3;
-      top: 0;
       border-bottom-style: solid;
       border-bottom-width: 1px;
     }
 
     #nav-menu {
-      min-height: fit-content;
+      height: 0;
       flex-grow: 1;
+      overflow: auto;
 
       .nav {
         height: 60px;
@@ -251,13 +249,31 @@ export default {
           color: var(--main-color);
         }
       }
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+          
+      &::-webkit-scrollbar-track {
+        background-color: var(--white-gray);
+        
+        &:hover {
+          background-color: var(--light-gray);
+        }
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--gray);
+        transition: 0.5;
+        
+        &:hover {
+          background-color: var(--dark-gray);
+        }
+      }
     }
 
     #drawer-footer {
       width: 100%;
-      position: sticky;
-      bottom: 0;
-      z-index: 3;
       border-top-style: solid;
       border-top-width: 1px;
 
@@ -291,27 +307,6 @@ export default {
             height: 100%;
           }
         }
-      }
-    }
-
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-        
-    &::-webkit-scrollbar-track {
-      background-color: var(--white-gray);
-      
-      &:hover {
-        background-color: var(--light-gray);
-      }
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--gray);
-      transition: 0.2s;
-      
-      &:hover {
-        background-color: var(--dark-gray);
       }
     }
   }

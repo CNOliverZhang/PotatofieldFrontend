@@ -37,17 +37,4 @@ a {
   cursor: pointer;
   text-decoration: unset;
 }
-
-.link {
-  font-size: 18px;
-  transition: 0.5s;
-
-  &:hover {
-    color: var(--main-color)!important;
-  }
-
-  &:active {
-    filter: brightness(0.7);
-  }
-}
 </style>

@@ -9,8 +9,12 @@
       :dark-mode="darkMode"
       logo="logo.png"
       title="洋芋田图像工具箱"
-      subtitle="一个适用于摄影师、设计师等创意行业从业者的图像工具箱"></pf-header>
-    <div id="main">
+      subtitle="一个适用于创意行业从业者的图像工具箱"></pf-header>
+    <div
+      id="main"
+      :style="{
+        'color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
+      }">
       <div id="code-wrapper">
         <div
           id="code"
@@ -20,18 +24,11 @@
             'color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
           }">404</div>
       </div>
-      <div
-        id="tip"
-        :style="{
-          'color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
-        }">别看啦，这里什么都没有</div>
+      <div id="tip">别看啦，这里什么都没有</div>
       <router-link
         class="link"
         :to="{
           name: 'index'
-        }"
-        :style="{
-          'color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
         }">返回首页</router-link>
     </div>
   </div>
@@ -133,7 +130,7 @@ export default {
     }
 
     #tip {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     @media screen and (max-height: 600px) {
@@ -147,6 +144,15 @@ export default {
       #tip {
         margin-top: 40px;
         margin-bottom: 40px;
+      }
+    }
+
+    .link {
+      font-size: 16px;
+      transition: 0.5s;
+
+      &:hover {
+        color: var(--main-color);
       }
     }
   }

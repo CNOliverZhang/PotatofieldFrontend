@@ -2,16 +2,34 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import index from '../views/index.vue'
 import error from '../views/error.vue'
+import history from '../views/history.vue'
+import about from '../views/about.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'index',
     component: index,
     meta: {
       title: '洋芋田图像工具箱'
+    }
+  },
+  {
+    path: '/history',
+    name: 'history',
+    component: history,
+    meta: {
+      title: '洋芋田图像工具箱 - 历史版本'
+    }
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: about,
+    meta: {
+      title: '洋芋田图像工具箱 - 关于'
     }
   },
   {
