@@ -77,18 +77,19 @@
           width="200"
           trigger="hover">
           <span class="link heavy" slot="reference">鼠标移到这里</span>
-          <img id="email" src="email.png" />
+          <img class="popover-image" src="email.png" />
         </el-popover>
         获取邮箱地址，给开发者发邮件反馈；也可以通过
         <el-popover
           width="200"
           trigger="hover">
           <span class="link heavy" slot="reference">鼠标移到这里</span>
-          <img id="email" src="qrcode.png" />
+          <img class="popover-image" src="qrcode.png" />
+          <div id="group-number">QQ 群号：769574565</div>
         </el-popover>
-        ，手机扫描二维码加入用户交流群更直接地与开发者交流。如果您不方便扫码，也可以直接通过
+        ，手机扫描二维码加入用户交流群更直接地与开发者交流。如果您不方便扫码，也可以通过搜索群号或
         <a class="link heavy" href="https://jq.qq.com/?_wv=1027&k=58umP3m" target="_blank">点击这个链接</a>
-        或直接搜索群号“769574565”添加用户群。
+        直接添加用户群。
       </div>
     </div>
     <router-link
@@ -195,8 +196,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#email {
+.popover-image {
   width: 100%;
+}
+
+.popover-image {
+  width: 100%;
+}
+
+#group-number {
+  font-size: 16px;
+  text-align: center;
 }
 
 #index {

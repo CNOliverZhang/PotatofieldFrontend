@@ -76,6 +76,20 @@
               :to="{
               name: 'history'
               }">查看历史版本</router-link>
+            <el-popover
+              width="200"
+              trigger="hover">
+              <a
+                slot="reference"
+                class="button"
+                :style="{
+                  'border-color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
+                }"
+                href="https://jq.qq.com/?_wv=1027&k=58umP3m"
+                target="_blank">加入用户群</a>
+              <img class="popover-image" src="qrcode.png" />
+              <div id="group-number">QQ 群号：769574565</div>
+            </el-popover>
           </div>
         </div>
         <router-link id="about" :to="{
@@ -111,6 +125,9 @@ export default {
   methods: {
     jumpToPage(index) {
       this.currentIndex = index
+    },
+    disableTouchMove(event) {
+      event.preventDefault()
     }
   },
   mounted() {
@@ -199,14 +216,28 @@ export default {
         }
       }
     })
-    window.addEventListener('touchmove', (event) => {
-      event.preventDefault()
+    window.addEventListener('touchmove', this.disableTouchMove, {
+      passive: false
+    })
+  },
+  destroyed() {
+    window.removeEventListener('touchmove', this.disableTouchMove, {
+      passive: false
     })
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.popover-image {
+  width: 100%;
+}
+
+#group-number {
+  font-size: 16px;
+  text-align: center;
+}
+
 #index {
   transition: 0.5s;
   overflow: hidden;
@@ -539,14 +570,6 @@ export default {
                 background-color: var(--main-color);
                 color: var(--white);
                 border-width: 0;
-              }
-
-              &:first-child {
-                margin-top: 0;
-              }
-
-              &:last-child {
-                margin-bottom: 0;
               }
             }
           }
