@@ -25,14 +25,21 @@
           'border-color': darkMode ? 'var(--dark-gray)' : 'var(--light-gray)'
         }">
         <div class="code">{{ version.code }}</div>
-        <a class="download" :href="version.download" target="_blank">下载</a>
       </div>
       <div class="feature" v-for="(feature, index) in version.features.split('\n')" :key="index">{{ feature }}</div>
-      <div class="footer">
+      <div class="date">
         <div>发布日期</div>
         <div>{{ version.pub_date.slice(0, 4) + " 年 "
           + version.pub_date.slice(5, 7) + " 月 "
           + version.pub_date.slice(8, 10) + " 日" }}</div>
+      </div>
+      <div
+        class="footer"
+        :style="{
+          'border-color': darkMode ? 'var(--dark-gray)' : 'var(--light-gray)'
+        }">
+        <a class="download" :href="version.win_package" target="_blank"><span class="fab fa-windows"></span> 下载 Windows 版</a>
+        <a class="download" :href="version.mac_package" target="_blank"><span class="fab fa-apple"></span> 下载 Mac 版</a>
       </div>
     </div>
     <router-link
@@ -126,16 +133,6 @@ export default {
         background-color: var(--main-color);
         color: var(--white);
       }
-
-      .download {
-        font-size: 16px;
-        transition: 0.5s;
-        cursor: pointer;
-
-        &:hover {
-          color: var(--main-color);
-        }
-      }
     }
 
     .feature {
@@ -147,7 +144,7 @@ export default {
       margin-bottom: 0.6em;
     }
 
-    .footer {
+    .date {
       padding-top: 10px;
       padding-bottom: 10px;
       padding-left: 30px;
@@ -157,6 +154,38 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .footer {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-top-width: 1px;
+      border-top-style: solid;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .download {
+        font-size: 16px;
+        margin-left: 5px;
+        margin-right: 5px;
+        transition: 0.5s;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--main-color);
+        }
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
 
     &:hover {

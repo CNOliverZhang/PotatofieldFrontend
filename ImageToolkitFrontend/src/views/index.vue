@@ -66,8 +66,15 @@
               :style="{
                 'border-color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
               }"
-              :href="latestVersion.download"
-              target="_blank">下载最新版</a>
+              :href="latestVersion.win_package"
+              target="_blank">下载 Windows 版</a>
+            <a
+              class="button"
+              :style="{
+                'border-color': darkMode ? 'var(--white-gray)' : 'var(--dark-gray)'
+              }"
+              :href="latestVersion.mac_package"
+              target="_blank">下载 Mac 版</a>
             <router-link
               class="button"
               :style="{
